@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>TouchIt Demo</title>
+		
+		<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,height=device-height,width=device-width,user-scalable = no">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+		<script src="touchit-1.0.0.js" type="text/javascript"></script>
+		<script type="text/javascript">
+
+			
+			$(document).ready(function () {
+				
+				$( "#touch" ).touchit({
+					onTouchStart: function (x, y) {
+						$("#touched").text('Touch Start ' + x + ':' + y);
+					},
+					onTouchMove: function (x, y) {
+						$("#touched").text("Touch Move " + x + ':' + y);
+					},
+					onTouchEnd: function (x, y) {
+						$("#touched").text("Touch End " + x + ':' + y);
+					},
+					onPinch: function (scale) {
+						$("#touched").text("Pinch " + scale);
+					}
+				});
+
+            });
+
+		</script>
+	   
+	</head>
+	<body style="margin:0px;">
+		<span id="touched" style="width:10px;height:10px; ">Touch and pinch the blue square...</span>
+		<div id="touch" style="width:250px;height:250px;background: blue; "></div>
+	</body>
+</html>
