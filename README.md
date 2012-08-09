@@ -15,23 +15,23 @@ You may use TouchIt under the terms of either the MIT License or the GNU General
 
 X, Y, Scale Callback Example
 ----------------------------
-$( "#touch" ).touchit({
-	onTouchStart: function (x, y) {
-		$("#touched").text('Touch Start ' + x + ':' + y);
-	},
-	onTouchMove: function (x, y) {
-		$("#touched").text("Touch Move " + x + ':' + y);
-	},
-	onTouchEnd: function (x, y) {
-		$("#touched").text("Touch End " + x + ':' + y);
-	},
-	onDoubleTap: function (x, y) {
-		$("#touched").text("Double Tap " + x + ':' + y);
-	},
-	onPinch: function (scale) {
-		$("#touched").text("Pinch " + scale);
-	}
-});
+	$( "#touch" ).touchit({
+		onTouchStart: function (x, y) {
+			$("#touched").text('Touch Start ' + x + ':' + y);
+		},
+		onTouchMove: function (x, y) {
+			$("#touched").text("Touch Move " + x + ':' + y);
+		},
+		onTouchEnd: function (x, y) {
+			$("#touched").text("Touch End " + x + ':' + y);
+		},
+		onDoubleTap: function (x, y) {
+			$("#touched").text("Double Tap " + x + ':' + y);
+		},
+		onPinch: function (scale) {
+			$("#touched").text("Pinch " + scale);
+		}
+	});
 
 jQuery UI Slider Example
 ------------------------
