@@ -1,9 +1,10 @@
-TouchIt
-=======
+# TouchIt
 
 TouchIt jQuery Plugin for converting touch to mouse events and call backs for touch X and Y coordinates and pinch Scale values.
 
-jQuery Plugin for Touch events.
+## jQuery Plugin for Touch events.
+
+Blog article: http://danielglyde.blogspot.co.uk/2012/08/touchit-jquery-plugin-for-touch-events.html
 
 Returns X and Y coordinates for touch events and double tap.
 Returns scale for Pinch events (1 = original position, > 1 = fingers move apart, < 1 fingers move together).
