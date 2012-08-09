@@ -54,10 +54,14 @@ $( "#zoomSlider" ).slider({
             var $this = $(this);
 
             $this.data('touchit', $.extend({
+				doubleTapTimeout: 500,
+				doubleTapWaiting: false,
+				preTouchStart: false,
 				onTouchStart: function (x, y) { },
 				onTouchMove: function (x, y) { },
 				onTouchEnd: function (x, y) { },
-				onPinch: function (scale) { },
+				onDoubleTap: function (x, y) { },
+				onPinch: function (scale) { }
             }, options));
 
             return this.each(function () {
@@ -94,29 +98,53 @@ $( "#zoomSlider" ).slider({
 					gestureChanged = true;
 
 					$this.data('touchit').onPinch.call(this, event.scale);
+					$this.data('touchit').preTouchStart = true;
                     event.preventDefault();
                 }
 				
                 function gestureEnd(event) {
                     gestureChanged = false;
+					
                     event.preventDefault();
                 }
 				
                 function touchHandler(event) {
-                    if (gestureChanged == true) { return; } //  don't interfere with the gesture
+					
+                    if (gestureChanged == true) {
+						return; 
+					} //  don't interfere with the gesture
                     var touches = event.changedTouches,
                         first = touches[0],
                         type = "";
 
                     switch (event.type) {
-                        case "touchstart": type = "mousedown"; 
+                        case "touchstart": 
+							type = "mousedown"; 
 							$this.data('touchit').onTouchStart.call(this, first.screenX, first.screenY);
+							$this.data('touchit').preTouchStart = true;
 							break;
-                        case "touchmove": type = "mousemove"; 
+                        case "touchmove": 
+							type = "mousemove"; 
 							$this.data('touchit').onTouchMove.call(this, first.screenX, first.screenY);
+							$this.data('touchit').preTouchStart = false;
 							break;
-                        case "touchend": type = "mouseup"; 
+                        case "touchend": 
+							type = "mouseup"; 
 							$this.data('touchit').onTouchEnd.call(this, first.screenX, first.screenY);
+						
+							//as we are lifting our fingers after a pinch if they lift within 100ms then consider a release from a pinch
+							if ($this.data('touchit').doubleTapWaiting == true && $this.data('touchit').preTouchStart == true) {	
+								$this.data('touchit').onDoubleTap.call(this, first.screenX, first.screenY);
+							}
+							else {
+								$this.data('touchit').doubleTapWaiting = true;
+								$this.data('touchit').onTouchEnd.call(this, first.screenX, first.screenY);
+								
+								window.setTimeout(function () {
+									$this.data('touchit').doubleTapWaiting = false;
+								}, $this.data('touchit').doubleTapTimeout);							
+							}
+							$this.data('touchit').preTouchStart = false;
 							break;
                         default: return;
                     }

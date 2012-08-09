@@ -22,6 +22,9 @@
 					},
 					onTouchEnd: function (x, y) {
 						$("#touched").text("Touch End " + x + ':' + y);
+					},					
+					onDoubleTap: function (x, y) {
+						$("#touched").text("Double Tap " + x + ':' + y);
 					},
 					onPinch: function (scale) {
 						$("#touched").text("Pinch " + scale);
