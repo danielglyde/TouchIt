@@ -56,9 +56,8 @@ $( "#zoomSlider" ).slider({
 
     var methods = {
         init: function (options) {
-            var $this = $(this);
 
-            $this.data('touchit', $.extend({
+            this.data('touchit', $.extend({
 				doubleTapTimeout: 500,
 				doubleTapWaiting: false,
 				preTouchStart: false,
@@ -71,11 +70,9 @@ $( "#zoomSlider" ).slider({
 
             return this.each(function () {
 
-                setupMobileEvents();
+                setupMobileEvents(this);
 
-                function setupMobileEvents() {
-
-					var el = $this[0];
+                function setupMobileEvents(el) {
 					
                     //test if Gestures are supported:
                     var gestureIsSupported = ('ongesturestart' in el);
@@ -100,6 +97,8 @@ $( "#zoomSlider" ).slider({
                 var gestureChanged = false;
 
                 function gestureChange(event) {
+                    var $this = $(this);
+
 					gestureChanged = true;
 
 					$this.data('touchit').onPinch.call(this, event.scale);
@@ -118,7 +117,8 @@ $( "#zoomSlider" ).slider({
                     if (gestureChanged == true) {
 						return; 
 					} //  don't interfere with the gesture
-                    var touches = event.changedTouches,
+                    var $this = $(this),
+                        touches = event.changedTouches,
                         first = touches[0],
                         type = "";
 
