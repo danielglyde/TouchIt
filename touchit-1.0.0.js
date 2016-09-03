@@ -1,4 +1,4 @@
-﻿/*
+/*
 jQuery Plugin for Touch events.
 
 Blog article: http://danielglyde.blogspot.co.uk/2012/08/touchit-jquery-plugin-for-touch-events.html
@@ -135,7 +135,6 @@ $( "#zoomSlider" ).slider({
 							break;
                         case "touchend": 
 							type = "mouseup"; 
-							$this.data('touchit').onTouchEnd.call(this, first.screenX, first.screenY);
 						
 							//as we are lifting our fingers after a pinch if they lift within 100ms then consider a release from a pinch
 							if ($this.data('touchit').doubleTapWaiting == true && $this.data('touchit').preTouchStart == true) {	
